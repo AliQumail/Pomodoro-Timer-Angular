@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="w-50 m-auto">
+    <div class="row mt-5">
+      <div class="col col-6"><button class="w-100 btn btn-secondary">25 Mins</button></div>
+      <div class="col col-6"><button class="w-100 btn btn-secondary">50 Mins</button></div>
+    </div>
+    <div class="row mt-5">
+      <h2 class="text-center">{{_25FormatMinutes}} : {{_25FormatSeconds}}</h2>
+    </div>
+    <div class="row mt-5">
+      <div class="col col-4"><button class="btn btn-success w-100" (click)="start()"> Start </button></div>
+      <div class="col col-4"><button class="btn btn-danger w-100" (click)="stop()"> Stop </button></div>
+      <div class="col col-4"><button class="btn btn-primary w-100" (click)="reset()"> Reset </button></div>
+    </div>
+  </div>
+</div>
