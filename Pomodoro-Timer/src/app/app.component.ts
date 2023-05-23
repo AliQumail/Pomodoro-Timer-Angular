@@ -7,44 +7,66 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  private timerInterval: any; // Variable to hold the interval reference
+
   constructor(private modalService: NgbModal) {}
 
   title = 'Pomodoro-Timer';
-  _25MinutesTimer = 1500;
-  _25FormatMinutes = 25;
-  _25FormatSeconds = 0;
+  totalTimer = 1500;
+  FormatMinutes = 25;
+  FormatSeconds = 0;
 
   isStart = false;
 
-  ngOnInit(){
-    this.runTimer
-  }
-  runTimer(){
-    while (this.isStart == true) {
-      setInterval(() => {
-        this.increment();
-      }, 1000);
+  ngOnInit() {
+    if (this.isStart) {
+      this.startTimer();
     }
   }
 
-  increment() {
-    this._25MinutesTimer = this._25MinutesTimer - 1;
-    this._25FormatMinutes = Math.floor(this._25MinutesTimer / 60);
-    this._25FormatSeconds = this._25MinutesTimer % 60;
+  runTimer() {
+    this.timerInterval = setInterval(() => {
+      this.increment();
+    }, 1000);
   }
 
-  start() {
-    console.log("start")
+  increment() {
+    this.totalTimer = this.totalTimer - 1;
+    this.FormatMinutes = Math.floor(this.totalTimer / 60);
+    this.FormatSeconds = this.totalTimer % 60;
+
+    if (this.totalTimer <= 0) {
+      this.stopTimer();
+    }
+  }
+
+  startTimer() {
+    console.log('start');
     this.isStart = true;
     this.runTimer();
   }
 
-  stop() {
+  stopTimer() {
+    console.log('stop');
     this.isStart = false;
+    clearInterval(this.timerInterval); // Clear the interval to stop the timer
   }
 
-  reset() {
+  resetTimer() {
+    console.log('reset');
     this.isStart = false;
-    this._25MinutesTimer = 1500;
+    this.totalTimer = 1500;
+    this.FormatMinutes = Math.floor(this.totalTimer / 60);
+    this.FormatSeconds = this.totalTimer % 60;
+  }
+
+  SetTimer(totalTime: any) {
+    console.log('setTimer');
+    console.log(totalTime);
+    this.isStart = false;
+    clearInterval(this.timerInterval);
+    this.totalTimer = totalTime;
+    this.FormatMinutes = Math.floor(totalTime / 60);
+    this.FormatSeconds = 0;
   }
 }
